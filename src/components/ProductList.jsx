@@ -6,7 +6,7 @@ export const ProductList = ({items,onMove , deleteToProduct}) => {
 
         <div className="row">
             {
-                items.map(elm => <Product key={elm.id} onMove={onMove} deleteToProduct={deleteToProduct}  {...elm}  />)
+                items.map(elm => <Product key={elm.id} onMove={onMove} deleteToProduct={deleteToProduct}  elm = {elm}  />)
             }
         </div>
     </div>

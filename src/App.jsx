@@ -16,9 +16,15 @@ function App() {
   ])
   const [basket, setBasket] = useState([])
 
-  const moveToCart = id =>{
-    let found = products.find(elm=>elm.id ==id)
-    setBasket([...basket , {...found,count:1}])
+  const moveToCart = prod =>{
+    let found = basket.find(elm=>elm.id == prod.id)
+    if(found){
+      found.count++
+      setBasket([...basket])
+    }else{
+      setBasket([...basket , {...prod,count:1}])
+    }
+    
   }
 
   const deleteToBasket = (id) => {
