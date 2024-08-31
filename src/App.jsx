@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 import { Basket } from './components/Basket'
 import { ProductList } from './components/ProductList'
@@ -16,15 +16,15 @@ function App() {
   ])
   const [basket, setBasket] = useState([])
 
-  const moveToCart = prod =>{
-    let found = basket.find(elm=>elm.id == prod.id)
-    if(found){
+  const moveToCart = prod => {
+    let found = basket.find(elm => elm.id == prod.id)
+    if (found) {
       found.count++
       setBasket([...basket])
-    }else{
-      setBasket([...basket , {...prod,count:1}])
+    } else {
+      setBasket([...basket, { ...prod, count: 1 }])
     }
-    
+
   }
 
   const deleteToBasket = (id) => {
@@ -54,12 +54,24 @@ function App() {
     setBasket([...basket.filter(elm => elm.id !== id)])
   }
 
+  const [total, setTotal] = useState(0)
+
+  useEffect(() => {
+    const subTotal = basket.map(elm => elm.price * elm.count)
+    let arr=subTotal.reduce((a,b)=>a+b,0)
+    // console.log("done",arr);
+    setTotal(arr)
+    
+  },[basket])
+  
+  
+
   return (
     <>
       <h1>Online Shop</h1>
       <div className='row'>
         <ProductList items={products} onMove={moveToCart} deleteToProduct={deleteToProduct} />
-        <Basket cart={basket} deleteToBasket={deleteToBasket} countPlus={countPlus} countMinus={countMinus} />
+        <Basket total={total} cart={basket} deleteToBasket={deleteToBasket} countPlus={countPlus} countMinus={countMinus} />
       </div>
     </>
   )

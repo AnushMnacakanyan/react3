@@ -1,4 +1,7 @@
-export const BasketItem = ({ cart,deleteToBasket,countPlus,countMinus }) => {
+export const BasketItem = ({ cart,deleteToBasket,countPlus,countMinus ,total}) => {
+
+
+
     return <>
         <table className="table table-dark table-bordered">
             <thead>
